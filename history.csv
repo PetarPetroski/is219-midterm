@@ -1,0 +1,4 @@
+command,args,result
+add,1 2,
+add,1 5,
+multiply,1 2 3,
