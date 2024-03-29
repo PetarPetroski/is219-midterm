@@ -10,3 +10,4 @@ class Subtract(Command):
             return
         result = int(numbers[0]) - sum(map(int, numbers[1:]))
         logging.info(f"The difference is: {result}")
+        return result

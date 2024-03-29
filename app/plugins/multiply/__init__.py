@@ -13,3 +13,4 @@ class Multiply(Command):
         for num in numbers:
             result *= int(num)
         logging.info(f"The product is: {result}")
+        return result

@@ -16,8 +16,11 @@ class Mode(Command):
             
             if len(modes) == 0:
                 logging.info("No mode found.")
+                return "No mode found."
             else:
                 logging.info("The modes are: " + ", ".join(map(str, modes)))
+                return modes
         except statistics.StatisticsError:
             logging.info("No mode found.")
+            return "No mode found."
             

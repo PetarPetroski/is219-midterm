@@ -13,4 +13,4 @@ class Mean(Command):
         mean = sum(numbers) / len(numbers)
         
         logging.info(f"The mean is: {mean}")
-        return result
+        return mean
