@@ -2,50 +2,51 @@
 
 ## Setup Instructions
 
-1. Ensure that you have Python 3.6 or later installed on your system. You can verify this by running `python --version` in your terminal. If you don't have Python installed, you can download it from the [official website](https://www.python.org/downloads/).
-
-2. Install the required Python packages. This project requires the `pandas` package. You can install it using pip:
-
-```bash
-pip install pandas
-```
-
-3. Clone the repository to your local machine and navigate to the project directory.
+1. Clone the repository
+2. Install the required dependencies
+3. Run the application
 
 ## Usage Examples
 
-This project is designed to handle commands. Here's an example of how to use it:
+To execute a command, use the `execute_command` method of the `CommandHandler` class. For example:
 
 ```python
-handler = CommandHandler()
-handler.register_command("example", ExampleCommand())
-handler.execute_command("example arg1 arg2")
+command_handler = CommandHandler()
+command_handler.execute_command("command_name")
 ```
 
 ## Architectural Decisions
 
-### Command Pattern
+### Design Patterns
 
-The command pattern is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request's execution, and support undoable operations.
+The Command design pattern is used in this application. This pattern encapsulates a request as an object, thereby allowing users to parameterize clients with queues, requests, and operations.
 
-In this project, the `Command` class is an abstract base class that represents a command. Concrete commands should inherit from this class and implement the `execute` method.
+See the implementation [here](./app/commands.py).
 
-The `CommandHandler` class is responsible for registering and executing commands. It maintains a history of executed commands, which can be saved to and loaded from a CSV file.
+### Environment Variables
 
-### Logging Strategy
+Environment variables are used to configure the application. They are loaded when the application starts.
 
-The project uses Python's built-in `logging` module to log events. The logging level is set to `INFO`, so all `INFO`, `WARNING`, `ERROR`, and `CRITICAL` messages will be logged.
+See the implementation [here](./__init__.py#L19-L24).
 
-The `logging.config` module is also imported, which allows for flexible configuration of logging. However, in the current implementation, the default configuration is used.
+### Logging
 
-When a command is executed, an `INFO` message is logged. If an unknown command is attempted, a `WARNING` message is logged.
+Logging is configured at the start of the application. If a logging configuration file exists, it is used; otherwise, a basic configuration is used.
 
-## Impact of Design Patterns and Logging Strategy
+See the implementation [here](./__init__.py#L14-L18).
 
-The command pattern provides several benefits:
+### Exception Handling
 
-- Decouples the sender and receiver of a request.
-- Allows for the parameterization of commands, making it easy to add new commands.
-- Supports undoable operations, although this feature is not implemented in this project.
+The application uses the "Easier to Ask for Forgiveness than Permission" (EAFP) style of exception handling. This is evident when loading plugins, where an attempt is made to import the plugin module, and if it fails, an error is logged.
 
-The logging strategy provides a way to track the flow of execution and debug issues. By logging an `INFO` message every time a command is executed, it's easy to see the sequence of commands that led to a particular state. The `WARNING` messages provide a way to identify attempts to execute unknown commands.
+See the implementation [here](./__init__.py#L39-L47).
+
+## Video Demonstration
+
+A video demonstration of the application can be found [here](#).
+
+## Additional Code
+
+The additional code provided includes the `Command` abstract base class and the `CommandHandler` class. The `CommandHandler` class maintains a history of executed commands and provides methods for executing commands, listing available commands, displaying command history, and saving/loading/clearing command history.
+
+See the implementation [here](./app/commands.py).
