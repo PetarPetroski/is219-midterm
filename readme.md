@@ -1,23 +1,51 @@
-# Project Starter
+# README.md
 
 ## Setup Instructions
-1. Clone the repo
-2. CD into the project folder
-3. Create the virtual environment 
-4. Activate the virtual environment (VE)
-5. Install Requirements
 
-## Test Commands
-1. pytest run all tests
-2. pytest tests/test_main.py <- Run just the tests in this file
-3. pytest --pylint --cov <- Run Pylint and Coverage (Can be run independently)
+1. Ensure that you have Python 3.6 or later installed on your system. You can verify this by running `python --version` in your terminal. If you don't have Python installed, you can download it from the [official website](https://www.python.org/downloads/).
 
-## Current Libraries Installed
-1. [Pytest - Testing Framework](https://docs.pytest.org/en/8.0.x/)
-2. [Faker - Fake Data Creation](https://faker.readthedocs.io/en/master/)
-3. [Pytest Coverage](https://pytest-cov.readthedocs.io/en/latest/readme.html)
-4. [Pytest Pylint](https://pylint.readthedocs.io/en/stable/development_guide/contributor_guide/tests/launching_test.html)
-## Adding Library
-1.  Make sure you are in the correct VE, if not sure run "deactivate"
-2.  Activate the VE
-3.  Run pip freeze > requirements.txt
+2. Install the required Python packages. This project requires the `pandas` package. You can install it using pip:
+
+```bash
+pip install pandas
+```
+
+3. Clone the repository to your local machine and navigate to the project directory.
+
+## Usage Examples
+
+This project is designed to handle commands. Here's an example of how to use it:
+
+```python
+handler = CommandHandler()
+handler.register_command("example", ExampleCommand())
+handler.execute_command("example arg1 arg2")
+```
+
+## Architectural Decisions
+
+### Command Pattern
+
+The command pattern is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request's execution, and support undoable operations.
+
+In this project, the `Command` class is an abstract base class that represents a command. Concrete commands should inherit from this class and implement the `execute` method.
+
+The `CommandHandler` class is responsible for registering and executing commands. It maintains a history of executed commands, which can be saved to and loaded from a CSV file.
+
+### Logging Strategy
+
+The project uses Python's built-in `logging` module to log events. The logging level is set to `INFO`, so all `INFO`, `WARNING`, `ERROR`, and `CRITICAL` messages will be logged.
+
+The `logging.config` module is also imported, which allows for flexible configuration of logging. However, in the current implementation, the default configuration is used.
+
+When a command is executed, an `INFO` message is logged. If an unknown command is attempted, a `WARNING` message is logged.
+
+## Impact of Design Patterns and Logging Strategy
+
+The command pattern provides several benefits:
+
+- Decouples the sender and receiver of a request.
+- Allows for the parameterization of commands, making it easy to add new commands.
+- Supports undoable operations, although this feature is not implemented in this project.
+
+The logging strategy provides a way to track the flow of execution and debug issues. By logging an `INFO` message every time a command is executed, it's easy to see the sequence of commands that led to a particular state. The `WARNING` messages provide a way to identify attempts to execute unknown commands.
