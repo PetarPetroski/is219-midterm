@@ -5,3 +5,7 @@
 .env
 logs
 venv
+_*pycache*_
+history*
+history.csv
+app/plugins/*/__pycache__/__init__.cpython-310.pyc
